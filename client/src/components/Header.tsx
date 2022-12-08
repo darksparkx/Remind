@@ -6,7 +6,9 @@ import { CgProfile } from "react-icons/cg";
 const Header = () => {
     // state variables
     const { user: user, logged: logged } = useUserState((state) => state);
-    const { profileDropdown: profileDropdown } = useState((state) => state);
+    const { profileDropdown: profileDropdown, newNote: newNote } = useState(
+        (state) => state
+    );
 
     // animation variables
     const animationVariants = {
@@ -48,79 +50,85 @@ const Header = () => {
     };
 
     return (
-        <header className="top-0 sticky flex flex-col h-14">
-            {/* Main Navbar Start */}
-            <div className=" z-20 h-auto flex flex-row  px-4 justify-between">
-                {/* Name */}
-                <h1 className=" text-4xl font-bold self-center text-color2light">
-                    REMIND
-                </h1>
+        <div>
+            {!newNote && (
+                <div className="top-0 flex flex-col h-14 w-full">
+                    {/* Main Navbar Start */}
+                    <div className="pt-10 h-auto flex flex-row  px-4 justify-between">
+                        {/* Name */}
+                        <h1 className=" text-4xl font-bold self-center text-color2light">
+                            REMIND
+                        </h1>
 
-                {/* Profile Button */}
-                <motion.div
-                    ref={buttonRef}
-                    initial="hidden"
-                    variants={animationVariants}
-                    animate={logged ? "visible" : "hidden"}
-                >
-                    <button
-                        onClick={handleProfileDropdown}
-                        className="text-4xl text-center  cursor-pointer rounded bg-color2 p-2"
+                        {/* Profile Button */}
+                        <motion.div
+                            ref={buttonRef}
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={logged ? "visible" : "hidden"}
+                        >
+                            <button
+                                onClick={handleProfileDropdown}
+                                className="text-4xl text-center  cursor-pointer rounded bg-color2 p-2"
+                            >
+                                <CgProfile
+                                    style={{ color: "#E97777" }}
+                                />
+                            </button>
+                        </motion.div>
+
+                        {/* Sign In Button */}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={!logged ? "visible" : "hidden"}
+                            id="signInDiv"
+                            className=" my-4 "
+                        ></motion.div>
+                    </div>
+                    {/* Main Navbar End */}
+
+                    {/* Profile Dropdown Start */}
+                    <motion.div
+                        ref={ref}
+                        className="z-10 self-end p-3 pt-14  mr-4  -mt-14 bg-color2 rounded "
+                        initial="closed"
+                        variants={animationVariants}
+                        animate={profileDropdown ? "open" : "closed"}
+                        transition={{ ease: "easeInOut", duration: 0.3 }}
                     >
-                        <CgProfile style={{ color: "rgb(255 250 215 )" }} />
-                    </button>
-                </motion.div>
-
-                {/* Sign In Button */}
-                <motion.div
-                    initial="hidden"
-                    variants={animationVariants}
-                    animate={!logged ? "visible" : "hidden"}
-                    id="signInDiv"
-                    className=" my-4 "
-                ></motion.div>
-            </div>
-            {/* Main Navbar End */}
-
-            {/* Profile Dropdown Start */}
-            <motion.div
-                ref={ref}
-                className="z-10 self-end p-3 pt-14  mr-4  -mt-14 bg-color2 rounded "
-                initial="closed"
-                variants={animationVariants}
-                animate={profileDropdown ? "open" : "closed"}
-                transition={{ ease: "easeInOut", duration: 0.3 }}
-            >
-                <motion.h2
-                    initial="sizeClose"
-                    variants={animationVariants}
-                    animate={profileDropdown ? "sizeOpen" : "sizeClose"}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                >
-                    Email:
-                </motion.h2>
-                <motion.h2
-                    initial="sizeClose"
-                    variants={animationVariants}
-                    animate={profileDropdown ? "sizeOpen" : "sizeClose"}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="mb-2"
-                >
-                    {user.email}
-                </motion.h2>
-                <motion.button
-                    initial="sizeClose"
-                    variants={animationVariants}
-                    animate={profileDropdown ? "sizeOpen" : "sizeClose"}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className=" bg-color1light rounded p-3 hover:bg-color1"
-                    onClick={handleSignOut}
-                >
-                    Sign Out
-                </motion.button>
-            </motion.div>
-            {/* Profile Dropdown End */}
-        </header>
+                        <motion.h2
+                            initial="sizeClose"
+                            variants={animationVariants}
+                            animate={profileDropdown ? "sizeOpen" : "sizeClose"}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                        >
+                            Email:
+                        </motion.h2>
+                        <motion.h2
+                            initial="sizeClose"
+                            variants={animationVariants}
+                            animate={profileDropdown ? "sizeOpen" : "sizeClose"}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className="mb-2"
+                        >
+                            {user.email}
+                        </motion.h2>
+                        <motion.button
+                            initial="sizeClose"
+                            variants={animationVariants}
+                            animate={profileDropdown ? "sizeOpen" : "sizeClose"}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className=" bg-color1light rounded p-3 hover:bg-color1"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </motion.button>
+                    </motion.div>
+                    {/* Profile Dropdown End */}
+                </div>
+            )}
+        </div>
     );
 };
 

@@ -1,20 +1,16 @@
 import React, { MouseEvent, useEffect } from "react";
 import { NoteInterface } from "../data/interfaces";
 import { UpdateNote } from "../modules/update";
-import { useUserState, useNoteState } from "../data/state";
+import { useUserState, useNoteState, useState } from "../data/state";
 
-import {
-    NotesDiv,
-    Search,
-    SearchIconWrapper,
-    StyledInputBase,
-} from "../../../style/Notes";
 const Notes = () => {
     const notesList = useUserState((state) => state.user?.notes);
     const user = useUserState((state) => state.user);
     const tagList = useNoteState((state) => state.tagList);
     const removedTags = useNoteState((state) => state.tagList);
     const searchBy = useNoteState((state) => state.searchBy);
+    const newNote = useState((state) => state.newNote);
+
     useEffect(() => {
         refreshTags();
     }, []);
@@ -71,8 +67,11 @@ const Notes = () => {
     };
 
     return (
-        <NotesDiv>
-            {/* <Typography>Search By: </Typography>
+        <div>
+            {!newNote && (
+                <div>
+                    yo yo
+                    {/* <Typography>Search By: </Typography>
             <Select id="SearchBy" value={searchBy} onChange={handleChange}>
                 <MenuItem value="Title">Title</MenuItem>
                 <MenuItem value="Tags">Tags</MenuItem>
@@ -135,7 +134,9 @@ const Notes = () => {
                     </Card>
                 );
             })} */}
-        </NotesDiv>
+                </div>
+            )}
+        </div>
     );
 };
 

@@ -26,8 +26,10 @@ const AddNote = () => {
 
     // animation variants
     const animationVariants = {
-        open: {  opacity: 1, height: "50%" },
-        closed: {  opacity: 0, height: 0 },
+        open: { opacity: 1, height: "70%" },
+        closed: { opacity: 0, height: 0 },
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
     };
     // handlers
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -134,110 +136,163 @@ const AddNote = () => {
     };
 
     return (
-        <div className="min-w-screen p-10 justify-center flex flex-col ">
-            {logged && (
-                <button
-                    id="newNote"
-                    onClick={handleClick}
-                    className="m-auto w-fit bg-color2 p-2 rounded"
-                >
-                    New Note
-                </button>
+        <div className="">
+            {logged && !newNote && (
+                <div className="min-w-screen p-20 justify-center flex flex-col ">
+                    <button
+                        id="newNote"
+                        onClick={handleClick}
+                        className="m-auto w-fit bg-color2 p-2 rounded"
+                    >
+                        New Note
+                    </button>
+                </div>
             )}
 
             {/* Add Note Form Start */}
-
-            <motion.div
-                initial="closed"
-                variants={animationVariants}
-                animate={newNote ? "open" : "closed"}
-                transition={{ ease: "easeInOut", duration: 1 }}
-                className=" flex flex-col justify-center m-auto bg-color2 p-10 space-y-5 rounded w-10/12 md:w-6/12 xl:w-5/12"
-            >
-                <button className="self-end" onClick={handleClick}>
-                    <GrClose />
-                </button>
-                {/* Title*/}
-                <div className="flex flex-col">
-                    <label className="addNoteLabel">Title: </label>
-                    <input
-                        id="Title"
-                        onChange={handleChange}
-                        value={title}
-                        type="text"
-                        placeholder="Title"
-                        className="addNoteInput"
-                    />
-                </div>
-
-                {/* Note */}
-                <div className="flex flex-col">
-                    <label className="addNoteLabel">Note: </label>
-                    <textarea
-                        id="Note"
-                        onChange={handleNote}
-                        value={note}
-                        placeholder="Add a Note..."
-                        className="addNoteInput overflow-hidden resize-y "
-                    />
-                </div>
-
-                {/* Tag Input*/}
-                <div className="flex flex-col">
-                    <label className="addNoteLabel">Tags: </label>
-                    <input
-                        id="Tags"
-                        onChange={handleChange}
-                        onKeyDown={handleKeyDown}
-                        value={tagInput}
-                        type="text"
-                        placeholder="Add tags..."
-                        className="addNoteInput"
-                    />
-                </div>
-
-                {/* Entered Tags */}
-                <div className=" flex flex-row  flex-wrap bg-color2light p-2 rounded">
-                    {tags.map((tag, i) => (
-                        <div
-                            key={i}
-                            className=" flex flex-row  py-1 px-2 bg-color1light rounded-lg mr-3 mt-1.5 mb-1.5"
-                        >
-                            {tag}
-
-                            <button
-                                className=" font-semibold font-mono h-6 w-6  rounded-full  hover:bg-color1 ml-1"
-                                onClick={(e) => handleTagRemove(e)}
-                            >
-                                x
-                            </button>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Calendar */}
-                <div className="hidden">
-                    <h3>
-                        Do you want set a timed reminder?{" "}
-                        <input
-                            type="checkbox"
-                            id="remindCheckbox"
-                            onChange={handleChange}
-                        />
-                    </h3>
-
-                    {remind && <DatePicker />}
-                </div>
-
-                {/* Submit Button */}
-                <button
-                    id="addNote"
-                    onClick={handleSubmit}
-                    className="bg-color1light p-2 rounded w-fit self-center hover:bg-color1 "
+            {logged && newNote && (
+                <motion.div
+                    initial="hidden"
+                    variants={animationVariants}
+                    animate={newNote ? "visible" : "hidden"}
+                    transition={{ ease: "easeIn", duration: 0.1 }}
+                    className=" h-screen bg-color1 flex flex-col justify-center items-center"
                 >
-                    Add Note
-                </button>
-            </motion.div>
+                    <motion.div
+                        initial="closed"
+                        variants={animationVariants}
+                        animate={newNote ? "open" : "closed"}
+                        transition={{ ease: "easeIn", duration: 0.5 }}
+                        className=" flex flex-col justify-center m-auto bg-color2 p-10 space-y-5 rounded w-10/12 md:w-6/12 xl:w-5/12"
+                    >
+                        <motion.button
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className="self-end"
+                            onClick={handleClick}
+                        >
+                            <GrClose />
+                        </motion.button>
+
+                        {/* Title*/}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className="flex flex-col"
+                        >
+                            <label className="addNoteLabel">Title: </label>
+                            <input
+                                id="Title"
+                                onChange={handleChange}
+                                value={title}
+                                type="text"
+                                placeholder="Title"
+                                className="addNoteInput"
+                            />
+                        </motion.div>
+
+                        {/* Note */}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className="flex flex-col"
+                        >
+                            <label className="addNoteLabel">Note: </label>
+                            <textarea
+                                id="Note"
+                                onChange={handleNote}
+                                value={note}
+                                placeholder="Add a Note..."
+                                className="addNoteInput overflow-hidden resize-y "
+                            />
+                        </motion.div>
+
+                        {/* Tag Input*/}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className="flex flex-col"
+                        >
+                            <label className="addNoteLabel">Tags: </label>
+                            <input
+                                id="Tags"
+                                onChange={handleChange}
+                                onKeyDown={handleKeyDown}
+                                value={tagInput}
+                                type="text"
+                                placeholder="Add tags..."
+                                className="addNoteInput"
+                            />
+                        </motion.div>
+
+                        {/* Entered Tags */}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className=" flex flex-row  flex-wrap bg-color2light p-2 rounded"
+                        >
+                            {tags.map((tag, i) => (
+                                <div
+                                    key={i}
+                                    className=" flex flex-row  py-1 px-2 bg-color1light rounded-lg mr-3 mt-1.5 mb-1.5"
+                                >
+                                    {tag}
+
+                                    <button
+                                        className=" font-semibold font-mono h-6 w-6  rounded-full  hover:bg-color1 ml-1"
+                                        onClick={(e) => handleTagRemove(e)}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            ))}
+                        </motion.div>
+
+                        {/* Calendar */}
+                        <motion.div
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            className="hidden"
+                        >
+                            <h3>
+                                Do you want set a timed reminder?{" "}
+                                <input
+                                    type="checkbox"
+                                    id="remindCheckbox"
+                                    onChange={handleChange}
+                                />
+                            </h3>
+
+                            {remind && <DatePicker />}
+                        </motion.div>
+
+                        {/* Submit Button */}
+                        <motion.button
+                            initial="hidden"
+                            variants={animationVariants}
+                            animate={newNote ? "visible" : "hidden"}
+                            transition={{ ease: "easeIn", duration: 1 }}
+                            id="addNote"
+                            onClick={handleSubmit}
+                            className="bg-color1light p-2 rounded w-fit self-center hover:bg-color1 "
+                        >
+                            Add Note
+                        </motion.button>
+                    </motion.div>
+                </motion.div>
+            )}
 
             {/* Add Note Form End */}
         </div>

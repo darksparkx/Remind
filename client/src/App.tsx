@@ -47,12 +47,12 @@ const App = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-color1 ">
+        <div className=" h-screen bg-color1">
             {" "}
             <div className=" lg:w-3/4 m-auto">
-                <Header />
+                <Header /> 
                 <AddNote />
-                {/* <Notes /> */}
+                <Notes />
             </div>
         </div>
     );

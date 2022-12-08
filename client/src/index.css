@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 @layer components {
+    .fColCenter {
+        @apply flex flex-col justify-center items-center;
+    }
+    .fRowCenter {
+        @apply flex flex-row justify-center items-center;
+    }
     .addNoteLabel {
         @apply mb-1 font-medium;
     }
     .addNoteInput {
-    @apply rounded p-1 focus:outline-none
+        @apply rounded p-1 focus:outline-none;
     }
 }
 
