@@ -47,7 +47,7 @@ const App = () => {
     }, []);
 
     return (
-        <div className=" h-screen bg-color1">
+        <div className=" h-full bg-color1">
             {" "}
             <div className=" lg:w-3/4 m-auto">
                 <Header /> 
