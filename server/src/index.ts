@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import router from "./router";
+import cors from "cors";
 
 dotenv.config();
 
@@ -42,7 +43,7 @@ app.use((req, res, next) => {
 
     next();
 });
-// app.use(cors)
+app.use(cors)
 // Routes
 app.use("/users", router);
 app.get("/", (req, res) => {

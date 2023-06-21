@@ -6,7 +6,7 @@ export const Authenticate = async (
     _email: string,
     callback: (error: string | null, user: UsersInterface) => void
 ) => {
-    const url: string = process.env.SERVER_URL as string;
+    const url: string = process.env.REACT_APP_SERVER_URL as string;
 
     const auth = {
         method: "POST",

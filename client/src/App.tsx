@@ -9,8 +9,9 @@ import { useUserState } from "./data/state";
 const App = () => {
     const user = useUserState((state) => state.user);
     const logged = useUserState((state) => state.logged);
-    const clientID: string = process.env.CLIENT_ID as string;
-
+    const clientID: string = process.env.REACT_APP_CLIENT_ID as string;
+    console.log(process.env.REACT_APP_CLIENT_ID);
+    
     function handleCallbackResponse(response: any) {
         var _userObject = jwt_decode(response.credential) as any;
 
