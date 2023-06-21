@@ -29,7 +29,7 @@ const App = () => {
         // global google
         google.accounts.id.initialize({
             client_id:
-                "666014915197-uulth3qvthldg1cee0t9s1u9b2khgvni.apps.googleusercontent.com",
+                "831138437821-bl1giqg7974q4fh20qr0kjt5b2vk5je8.apps.googleusercontent.com",
             callback: handleCallbackResponse,
         });
 
@@ -59,7 +59,11 @@ const App = () => {
                     className={`${
                         logged ? "hidden" : "block"
                     } h-screen bg-color1`}
-                ></div>
+                >
+                    <p className="text-center mt-36 font-semibold text-lg">
+                        Please Sign in to continue
+                    </p>
+                </div>
             </div>
         </div>
     );

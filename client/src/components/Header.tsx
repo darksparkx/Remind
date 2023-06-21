@@ -59,7 +59,7 @@ const Header = () => {
                     {/* Main Navbar Start */}
                     <div className="pt-10 h-auto flex flex-row  px-4 justify-between">
                         {/* Name */}
-                        <h1 className=" text-4xl font-bold self-center text-color2light">
+                        <h1 className=" text-4xl font-bold self-center text-color2">
                             REMIND
                         </h1>
 
@@ -73,7 +73,7 @@ const Header = () => {
                         >
                             <button
                                 onClick={handleProfileDropdown}
-                                className="text-4xl text-center  cursor-pointer rounded bg-color2 p-2"
+                                className="text-4xl text-center  cursor-pointer rounded bg-color2 p-2 "
                             >
                                 <CgProfile style={{ color: "#E97777" }} />
                             </button>
@@ -93,7 +93,7 @@ const Header = () => {
                     {/* Profile Dropdown Start */}
                     <motion.div
                         ref={ref}
-                        className="z-10 self-end p-3 pt-14  mr-4  -mt-14 bg-color2 rounded "
+                        className="z-10 self-end p-3 pt-14  mr-4  -mt-14 bg-color2 rounded text-white"
                         initial="closed"
                         variants={animationVariants}
                         animate={profileDropdown ? "open" : "closed"}
@@ -121,7 +121,7 @@ const Header = () => {
                             variants={animationVariants}
                             animate={profileDropdown ? "sizeOpen" : "sizeClose"}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
-                            className=" bg-color1light rounded p-3 hover:bg-color1"
+                            className=" bg-color1light text-color2 rounded p-3 hover:bg-color1 hover:text-black"
                             onClick={handleSignOut}
                         >
                             Sign Out

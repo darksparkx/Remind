@@ -10,7 +10,7 @@
         @apply flex flex-row justify-center items-center;
     }
     .addNoteLabel {
-        @apply mb-1 font-medium;
+        @apply mb-1 font-medium text-white;
     }
     .addNoteInput {
         @apply rounded p-1 focus:outline-none;

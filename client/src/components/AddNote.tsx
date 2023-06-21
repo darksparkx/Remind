@@ -136,13 +136,13 @@ const AddNote = () => {
     };
 
     return (
-        <div className="">
+        <div className="text-black">
             {!newNote && (
                 <div className="min-w-screen p-20 justify-center flex flex-col ">
                     <button
                         id="newNote"
                         onClick={handleClick}
-                        className="m-auto w-fit bg-color2 p-2 rounded"
+                        className="m-auto -mb-10 w-fit bg-color2light p-2 rounded text-white hover:bg-white hover:text-black"
                     >
                         New Note
                     </button>
@@ -170,10 +170,10 @@ const AddNote = () => {
                             variants={animationVariants}
                             animate={newNote ? "visible" : "hidden"}
                             transition={{ ease: "easeIn", duration: 1 }}
-                            className="self-end"
+                            className="self-end text-white bg-white rounded-full p-1"
                             onClick={handleClick}
                         >
-                            <GrClose />
+                            <GrClose size={25} />
                         </motion.button>
 
                         {/* Title*/}
@@ -244,12 +244,12 @@ const AddNote = () => {
                             {tags.map((tag, i) => (
                                 <div
                                     key={i}
-                                    className=" flex flex-row  py-1 px-2 bg-color1light rounded-lg mr-3 mt-1.5 mb-1.5"
+                                    className=" flex flex-row  py-1 px-2 bg-color2 rounded-lg mr-3 mt-1.5 mb-1.5 text-white"
                                 >
                                     {tag}
 
                                     <button
-                                        className=" font-semibold font-mono h-6 w-6  rounded-full  hover:bg-color1 ml-1"
+                                        className=" font-semibold font-mono h-6 w-6  rounded-full ml-1"
                                         onClick={(e) => handleTagRemove(e)}
                                     >
                                         x
@@ -259,7 +259,7 @@ const AddNote = () => {
                         </motion.div>
 
                         {/* Calendar */}
-                        <motion.div
+                        {/* <motion.div
                             initial="hidden"
                             variants={animationVariants}
                             animate={newNote ? "visible" : "hidden"}
@@ -276,7 +276,7 @@ const AddNote = () => {
                             </h3>
 
                             {remind && <DatePicker />}
-                        </motion.div>
+                        </motion.div> */}
 
                         {/* Submit Button */}
                         <motion.button
@@ -286,7 +286,7 @@ const AddNote = () => {
                             transition={{ ease: "easeIn", duration: 1 }}
                             id="addNote"
                             onClick={handleSubmit}
-                            className="bg-color1light p-2 rounded w-fit self-center hover:bg-color1 "
+                            className="bg-color1 text-black p-2 rounded w-fit self-center hover:bg-color1 "
                         >
                             Add Note
                         </motion.button>

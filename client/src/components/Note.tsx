@@ -37,7 +37,7 @@ const Note = (props: Props) => {
     return (
         <div
             id={index}
-            className=" p-5 w-full md:w-1/3 lg:w-1/3 m-5 bg-color2light  rounded-lg"
+            className=" p-5 w-full md:w-1/3 lg:w-1/3 m-5 bg-color2 text-white  rounded-lg"
         >
             <div>
                 <div className="flex flex-row justify-between mb-3">
@@ -53,14 +53,14 @@ const Note = (props: Props) => {
                 </div>
 
                 <p>{item.note}</p>
-                <h4 className="mt-4">
+                <h4 className="mt-4 mb-2">
                     <strong>Tags:</strong>
                 </h4>
                 <div className="flex flex-row flex-wrap">
                     {item.tags.map((item, i) => (
                         <p
                             key={i}
-                            className="ml-2 mt-2 py-2 px-3 bg-color1light rounded-xl"
+                            className="ml-2 mt-2 py-1 px-3 bg-color1 text-black rounded-md "
                         >
                             {item}
                         </p>

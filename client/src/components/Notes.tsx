@@ -85,7 +85,7 @@ const Notes = () => {
             }  flex-col items-center min-h-screen h-full`}
         >
             {/* Search */}
-            <div className=" flex flex-col items-center bg-color2light rounded  mx-4 mb-10">
+            <div className=" flex flex-col items-center bg-color2light rounded  mx-4 mb-10 text-white">
                 {/* Search Type  */}
                 <div className="flex flex-row lg:px-32 px-4 pt-3">
                     <p className=" mr-2 text-center flex flex-row justify-center items-center w-fit px-2 mx-4 rounded">
@@ -106,6 +106,7 @@ const Notes = () => {
                         <option
                             value="Tags"
                             className="bg-white outline-none p-3 w-8"
+                            disabled
                         >
                             Tags
                         </option>
@@ -122,7 +123,7 @@ const Notes = () => {
                         value={searchInput}
                         onChange={handleSearchInput}
                         placeholder="Search…"
-                        className="outline-none w-fit rounded"
+                        className="outline-none w-fit rounded text-black mx-5 mb-2"
                     />
                 </div>
 
@@ -146,7 +147,7 @@ const Notes = () => {
             </div>
 
             {/* Main Notes */}
-            <div className=" flex flex-wrap flex-row justify-center w-full bg-color2">
+            <div className=" flex flex-wrap flex-row justify-center w-full">
                 {searchBy === "Title" ? (
                     noResults() ? (
                         <p>No Results Found</p>
