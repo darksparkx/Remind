@@ -3,3 +3,5 @@ todo.txt
 .env
 /build
 /coverage
+
+package-lock.json
