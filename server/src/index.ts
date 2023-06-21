@@ -7,8 +7,6 @@ dotenv.config();
 
 const app: Express = express();
 
-const port = process.env.PORT;
-
 // Connect To Mongo
 const mongoURL: string = process.env.MONGOURL as string;
 mongoose
@@ -58,6 +56,6 @@ app.use((req, res, next) => {
 });
 
 // Listen for Requests
-app.listen(port, () => {
-    console.log(`[server]: Server is running at https://localhost:${port}`);
+app.listen( () => {
+    console.log(`[server]: Server is running at https://localhost:1337`);
 });
