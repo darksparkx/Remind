@@ -24,6 +24,8 @@ app.use(express.json());
 
 // Rules for API
 app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
@@ -56,6 +58,6 @@ app.use((req, res, next) => {
 });
 
 // Listen for Requests
-app.listen( () => {
+app.listen(() => {
     console.log(`[server]: Server is running at https://localhost:1337`);
 });
