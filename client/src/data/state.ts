@@ -1,6 +1,6 @@
 import create from "zustand";
 import { persist, devtools } from "zustand/middleware";
-import { UserState, AddNoteState, State, NoteState } from "./interfaces";
+import { UserState, AddNoteState, CommonState, NoteState } from "./interfaces";
 
 // Initial States
 export const useUserInitialState = {
@@ -20,13 +20,15 @@ export const useAddNoteInitialState = {
 
 export const useNoteInitialState = {
     tagList: [],
+    tagsDropdown: false,
     removedTags: [],
     searchBy: "Title",
+    searchInput: "",
 };
 
 // States
 
-export const useState = create<State>()(
+export const useCommonState = create<CommonState>()(
     devtools((set) => ({
         profileDropdown: false,
         newNote: false,

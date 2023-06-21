@@ -2,7 +2,7 @@ import { MouseEvent, KeyboardEvent, ChangeEvent, FormEvent } from "react";
 import {
     useAddNoteInitialState,
     useAddNoteState,
-    useState,
+    useCommonState,
     useUserState,
 } from "../data/state";
 import { NoteInterface } from "../data/interfaces";
@@ -22,7 +22,7 @@ const AddNote = () => {
         date: date,
     } = useAddNoteState((state) => state);
     const { logged: logged, user: user } = useUserState((state) => state);
-    const newNote = useState((state) => state.newNote);
+    const newNote = useCommonState((state) => state.newNote);
 
     // animation variants
     const animationVariants = {
@@ -132,12 +132,12 @@ const AddNote = () => {
     };
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        useState.setState({ newNote: !newNote });
+        useCommonState.setState({ newNote: !newNote });
     };
 
     return (
         <div className="">
-            {logged && !newNote && (
+            {!newNote && (
                 <div className="min-w-screen p-20 justify-center flex flex-col ">
                     <button
                         id="newNote"
@@ -150,7 +150,7 @@ const AddNote = () => {
             )}
 
             {/* Add Note Form Start */}
-            {logged && newNote && (
+            {newNote && (
                 <motion.div
                     initial="hidden"
                     variants={animationVariants}

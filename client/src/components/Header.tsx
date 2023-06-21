@@ -1,14 +1,17 @@
 import { useRef } from "react";
-import { useUserInitialState, useUserState, useState } from "../data/state";
+import {
+    useUserInitialState,
+    useUserState,
+    useCommonState,
+} from "../data/state";
 import { motion } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 
 const Header = () => {
     // state variables
     const { user: user, logged: logged } = useUserState((state) => state);
-    const { profileDropdown: profileDropdown, newNote: newNote } = useState(
-        (state) => state
-    );
+    const { profileDropdown: profileDropdown, newNote: newNote } =
+        useCommonState((state) => state);
 
     // animation variables
     const animationVariants = {
@@ -20,9 +23,9 @@ const Header = () => {
         sizeClose: { fontSize: ["75%", "25%", "0"] },
     };
 
-    // handlers
+    // Functions
     const handleSignOut = () => {
-        useState.setState({ profileDropdown: false });
+        useCommonState.setState({ profileDropdown: false });
         setTimeout(
             () => useUserState.setState({ ...useUserInitialState }),
             200
@@ -30,7 +33,7 @@ const Header = () => {
     };
 
     const handleProfileDropdown = () => {
-        useState.setState({ profileDropdown: !profileDropdown });
+        useCommonState.setState({ profileDropdown: !profileDropdown });
         document.addEventListener("mousedown", handleClickOutside);
     };
 
@@ -45,7 +48,7 @@ const Header = () => {
         ) {
             document.removeEventListener("mousedown", handleClickOutside);
         } else {
-            useState.setState({ profileDropdown: false });
+            useCommonState.setState({ profileDropdown: false });
         }
     };
 
@@ -66,14 +69,13 @@ const Header = () => {
                             initial="hidden"
                             variants={animationVariants}
                             animate={logged ? "visible" : "hidden"}
+                            className="z-20"
                         >
                             <button
                                 onClick={handleProfileDropdown}
                                 className="text-4xl text-center  cursor-pointer rounded bg-color2 p-2"
                             >
-                                <CgProfile
-                                    style={{ color: "#E97777" }}
-                                />
+                                <CgProfile style={{ color: "#E97777" }} />
                             </button>
                         </motion.div>
 

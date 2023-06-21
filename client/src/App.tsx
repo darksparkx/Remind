@@ -9,7 +9,7 @@ import { useUserState } from "./data/state";
 const App = () => {
     const user = useUserState((state) => state.user);
     const logged = useUserState((state) => state.logged);
-    
+
     function handleCallbackResponse(response: any) {
         var _userObject = jwt_decode(response.credential) as any;
 
@@ -50,9 +50,16 @@ const App = () => {
         <div className=" h-full bg-color1">
             {" "}
             <div className=" lg:w-3/4 m-auto">
-                <Header /> 
-                <AddNote />
-                <Notes />
+                <Header />
+                <div className={`${logged ? "block" : "hidden"}`}>
+                    <AddNote />
+                    <Notes />
+                </div>
+                <div
+                    className={`${
+                        logged ? "hidden" : "block"
+                    } h-screen bg-color1`}
+                ></div>
             </div>
         </div>
     );

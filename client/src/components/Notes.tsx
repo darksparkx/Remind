@@ -1,16 +1,19 @@
+import { motion } from "framer-motion";
 import React, { ChangeEvent, MouseEvent, useEffect } from "react";
-import { NoteInterface } from "../data/interfaces";
-import { UpdateNote } from "../modules/update";
-import { useUserState, useNoteState, useState } from "../data/state";
-import { BsFillTrashFill } from "react-icons/bs";
+import { useUserState, useNoteState, useCommonState } from "../data/state";
+import { AiFillCaretDown } from "react-icons/ai";
+import Note from "./Note";
+
 const Notes = () => {
     // state variables
     const notesList = useUserState((state) => state.user?.notes);
-    const user = useUserState((state) => state.user);
     const tagList = useNoteState((state) => state.tagList);
     const removedTags = useNoteState((state) => state.tagList);
     const searchBy = useNoteState((state) => state.searchBy);
-    const newNote = useState((state) => state.newNote);
+    const newNote = useCommonState((state) => state.newNote);
+    const searchInput = useNoteState((state) => state.searchInput);
+    const tagsDropdown = useNoteState((state) => state.tagsDropdown);
+    const logged = useUserState((state) => state.logged);
 
     useEffect(() => {
         refreshTags();
@@ -32,25 +35,34 @@ const Notes = () => {
         useNoteState.setState({ tagList: newTagsList });
     };
 
-    // handlers
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
-        const index = parseInt(event.currentTarget.parentElement?.id as string);
-        notesList?.splice(index, 1);
+    // Functions
+    const noResults = () => {
+        if (searchBy === "Title") {
+            const filteredList = notesList.filter((item) =>
+                item.title
+                    .toLocaleLowerCase()
+                    .includes(searchInput.toLocaleLowerCase())
+            );
 
-        UpdateNote(user?.email as string, notesList as NoteInterface[])
-            .then((response) => {
-                useUserState.setState({ user: user });
-            })
-            .then((response) => {
-                window.location.reload();
-            });
+            if (filteredList.length > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+        }
+    };
 
-        // get the tags again
-        refreshTags();
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+        useNoteState.setState({ tagsDropdown: !tagsDropdown });
     };
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
         useNoteState.setState({ searchBy: event.target.value });
+    };
+
+    const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+        useNoteState.setState({ searchInput: event.target.value });
     };
 
     const handleTagRemove = (event: MouseEvent<HTMLElement>) => {
@@ -67,81 +79,98 @@ const Notes = () => {
     };
 
     return (
-        <div className={`${newNote ? "hidden" : "block"}`}>
-            <div className=" flex flex-wrap flex-row justify-center">
+        <div
+            className={`${
+                newNote ? "hidden" : "flex"
+            }  flex-col items-center min-h-screen h-full`}
+        >
+            {/* Search */}
+            <div className=" flex flex-col items-center bg-color2light rounded  mx-4 mb-10">
                 {/* Search Type  */}
-                <select id="SearchBy" value={searchBy} onChange={handleChange}>
-                    <option value="Title">Title</option>
-                    <option value="Tags">Tags</option>
-                </select>
+                <div className="flex flex-row lg:px-32 px-4 pt-3">
+                    <p className=" mr-2 text-center flex flex-row justify-center items-center w-fit px-2 mx-4 rounded">
+                        Search By:
+                    </p>
+                    <select
+                        id="SearchBy"
+                        value={searchBy}
+                        onChange={handleChange}
+                        className=" bg-color2light outline-none  mr-2 py-2 px-6"
+                    >
+                        <option
+                            value="Title"
+                            className="bg-white outline-none p-3 w-8"
+                        >
+                            Title
+                        </option>
+                        <option
+                            value="Tags"
+                            className="bg-white outline-none p-3 w-8"
+                        >
+                            Tags
+                        </option>
+                    </select>
+                </div>
 
                 {/* Search by Title */}
-                <div className={`${searchBy === "Title" ? "block" : "hidden"}`}>
-                    <input placeholder="Search…" />
+                <div
+                    className={`${
+                        searchBy === "Title" ? "block" : "hidden"
+                    } pb-3`}
+                >
+                    <input
+                        value={searchInput}
+                        onChange={handleSearchInput}
+                        placeholder="Search…"
+                        className="outline-none w-fit rounded"
+                    />
                 </div>
 
                 {/* Search by Tags */}
-                {searchBy === "Tags" && (
-                    <div>
-                        <div>
-                           
-                            <input
-                                placeholder="Search…"
-                            />
-                        </div>
-                        {tagList.map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    {item}
-                                    <button onClick={handleTagRemove}>
-                                        x
-                                    </button>
-                                </div>
-                            );
-                        })}
-                    </div>
+                <div
+                    className={`${
+                        searchBy === "Tags" ? "flex" : "hidden"
+                    }  bg-color1light p-3 flex-row flex-wrap w-72 lg:w-fit `}
+                >
+                    {tagList.map((item, i) => {
+                        return (
+                            <button
+                                key={i}
+                                className=" bg-color2light p-1 rounded my-1 mx-2"
+                            >
+                                {item}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* Main Notes */}
+            <div className=" flex flex-wrap flex-row justify-center w-full bg-color2">
+                {searchBy === "Title" ? (
+                    noResults() ? (
+                        <p>No Results Found</p>
+                    ) : (
+                        notesList
+                            .filter((item) =>
+                                item.title
+                                    .toLocaleLowerCase()
+                                    .includes(searchInput.toLocaleLowerCase())
+                            )
+                            .map((item, index) => {
+                                return (
+                                    <Note
+                                        index={index.toString()}
+                                        item={item}
+                                        refreshTags={refreshTags}
+                                        key={index}
+                                    />
+                                );
+                            })
+                    )
+                ) : (
+                    <p>tags</p>
                 )}
-
-                {/* Main Notes */}
-                {notesList?.map((item, i) => {
-                    return (
-                        <div
-                            id={i.toString()}
-                            key={i}
-                            className=" p-5 w-full md:w-1/3 lg:w-1/5 m-5 bg-color2  rounded-lg"
-                        >
-                            <div>
-                                <div className="flex flex-row justify-between mb-3">
-                                    <h3 className="text-2xl">
-                                        <strong>{item.title}</strong>
-                                    </h3>
-                                    <button
-                                        onClick={handleClick}
-                                        className=" p-2 bg-red-800 text-white rounded-md "
-                                    >
-                                        <BsFillTrashFill />
-                                    </button>
-                                </div>
-
-                                <p>{item.note}</p>
-                                <h4 className="mt-4">
-                                    <strong>Tags:</strong>
-                                </h4>
-                                <div className="flex flex-row flex-wrap">
-                                    {item.tags.map((item, i) => (
-                                        <p
-                                            key={i}
-                                            className="ml-2 mt-2 py-2 px-3 bg-color1light rounded-xl"
-                                        >
-                                            {item}
-                                        </p>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className=" flex justify-center"></div>
-                        </div>
-                    );
-                })}
             </div>
         </div>
     );

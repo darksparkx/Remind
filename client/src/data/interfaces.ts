@@ -8,15 +8,18 @@ export interface AddNoteState {
     customDate: boolean;
 }
 
-export interface State {
+export interface CommonState {
     profileDropdown: boolean;
     newNote: boolean;
 }
 
 export interface NoteState {
     tagList: string[];
+    tagsDropdown: boolean;
     removedTags: string[];
     searchBy: string;
+    searchInput: string;
+
 }
 
 export interface UserState {
