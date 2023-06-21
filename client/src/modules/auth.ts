@@ -6,7 +6,8 @@ export const Authenticate = async (
     _email: string,
     callback: (error: string | null, user: UsersInterface) => void
 ) => {
-    const url = "http://localhost:1337";
+    const url: string = process.env.SERVER_URL as string;
+
     const auth = {
         method: "POST",
         url: `${url}/users/login`,

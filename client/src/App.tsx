@@ -9,6 +9,7 @@ import { useUserState } from "./data/state";
 const App = () => {
     const user = useUserState((state) => state.user);
     const logged = useUserState((state) => state.logged);
+    const clientID: string = process.env.CLIENT_ID as string;
 
     function handleCallbackResponse(response: any) {
         var _userObject = jwt_decode(response.credential) as any;
@@ -29,7 +30,7 @@ const App = () => {
         // global google
         google.accounts.id.initialize({
             client_id:
-                "831138437821-bl1giqg7974q4fh20qr0kjt5b2vk5je8.apps.googleusercontent.com",
+                clientID,
             callback: handleCallbackResponse,
         });
 

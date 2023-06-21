@@ -2,7 +2,8 @@ import axios from "axios";
 import { NoteInterface, UsersInterface } from "../data/interfaces";
 
 export const UpdateNote = async (_email: string, _notes: NoteInterface[]) => {
-    const url = "http://localhost:1337";
+    const url: string = process.env.SERVER_URL as string;
+
 
     const update = {
         method: "POST",
