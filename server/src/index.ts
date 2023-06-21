@@ -26,8 +26,8 @@ app.use(express.json());
 // Rules for API
 app.use(cors())
 app.use((req, res, next) => {
-    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.header("Cross-Origin-Opener-Policy", "*");
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
