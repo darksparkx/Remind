@@ -1,15 +1,15 @@
 import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import router from "./router";
+import router from "./routes/router";
 import cors from "cors";
 
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 
 // Connect To Mongo
-const mongoURL: string = process.env.MONGOURL as string;
+const mongoURL= process.env.MONGOURL;
 mongoose
     .connect(mongoURL)
     .then(() => {
@@ -26,8 +26,7 @@ app.use(express.json());
 // Rules for API
 app.use(cors())
 app.use((req, res, next) => {
-    res.header("Cross-Origin-Opener-Policy", "*");
-    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+    res.header("Cross-Origin-Opener-Policy", "unsafe-none");
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",

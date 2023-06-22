@@ -1,18 +1,17 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import { NextFunction, Request, Response, Router } from "express";
-import { UsersInterface } from "./interfaces";
 
 dotenv.config();
 const router = Router();
-const url = process.env.MONGOURL as string;
+const url = process.env.MONGOURL;
 const client = new MongoClient(url);
 
-const login = async (req: Request, res: Response, next: NextFunction) => {
+const login = async (req, res, next) => {
     let { email } = req.body;
     const database = client.db("remind");
 
-    const users = database.collection<UsersInterface>("users");
+    const users = database.collection("users");
     await users
         .findOne({ email })
         .then((user) => {
@@ -30,11 +29,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const create = async (req, res, next) => {
     let { email } = req.body;
     const database = client.db("remind");
 
-    const users = database.collection<UsersInterface>("users");
+    const users = database.collection("users");
     await users
         .insertOne({
             email: email,
@@ -59,11 +58,11 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (req, res, next) => {
     let { email, notes } = req.body;
     const database = client.db("remind");
 
-    const users = database.collection<UsersInterface>("users");
+    const users = database.collection("users");
     await users
         .updateOne(
             {
@@ -94,4 +93,4 @@ router.post("/create", create);
 router.post("/login", login);
 router.post("/update", update);
 
-export = router;
+export default router;
