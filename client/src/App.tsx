@@ -28,7 +28,6 @@ const App = () => {
     useEffect(() => {
     
         const clientID: string = process.env.REACT_APP_CLIENT_ID as string;
-        console.log(clientID);
         // global google
         google.accounts.id.initialize({
             client_id: clientID,
