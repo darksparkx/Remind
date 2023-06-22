@@ -1,6 +1,6 @@
-import { MongoClient } from "mongodb";
-import dotenv from "dotenv";
-import { NextFunction, Request, Response, Router } from "express";
+const { MongoClient } = require("mongodb");
+const dotenv = require("dotenv");
+const { Router } = require("express");
 
 dotenv.config();
 const router = Router();
@@ -93,4 +93,4 @@ router.post("/create", create);
 router.post("/login", login);
 router.post("/update", update);
 
-export default router;
+module.exports = router;
