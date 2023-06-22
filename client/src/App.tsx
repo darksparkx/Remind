@@ -9,8 +9,7 @@ import { useUserState } from "./data/state";
 const App = () => {
     const user = useUserState((state) => state.user);
     const logged = useUserState((state) => state.logged);
-    const clientID: string = process.env.REACT_APP_CLIENT_ID as string;
-    
+
     function handleCallbackResponse(response: any) {
         var _userObject = jwt_decode(response.credential) as any;
 
@@ -27,10 +26,12 @@ const App = () => {
     }
 
     useEffect(() => {
+    
+        const clientID: string = process.env.REACT_APP_CLIENT_ID as string;
+        console.log(clientID);
         // global google
         google.accounts.id.initialize({
-            client_id:
-                clientID,
+            client_id: clientID,
             callback: handleCallbackResponse,
         });
 
@@ -42,9 +43,7 @@ const App = () => {
             type: "standard",
         });
 
-        {
-            !logged && google.accounts.id.prompt();
-        }
+        !logged && google.accounts.id.prompt();
     }, []);
 
     return (

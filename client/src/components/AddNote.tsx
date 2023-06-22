@@ -1,4 +1,4 @@
-import { MouseEvent, KeyboardEvent, ChangeEvent, FormEvent } from "react";
+import { MouseEvent, KeyboardEvent, ChangeEvent } from "react";
 import {
     useAddNoteInitialState,
     useAddNoteState,
@@ -6,22 +6,16 @@ import {
     useUserState,
 } from "../data/state";
 import { NoteInterface } from "../data/interfaces";
-import DatePicker from "./Date";
 import { UpdateNote } from "../modules/update";
 import { GrClose } from "react-icons/gr";
 import { motion } from "framer-motion";
 
 const AddNote = () => {
     // state variables
-    const {
-        title: title,
-        note: note,
-        tags: tags,
-        tagInput: tagInput,
-        remind: remind,
-        date: date,
-    } = useAddNoteState((state) => state);
-    const { logged: logged, user: user } = useUserState((state) => state);
+    const { title, note, tags, tagInput, remind, date } = useAddNoteState(
+        (state) => state
+    );
+    const { logged, user } = useUserState((state) => state);
     const newNote = useCommonState((state) => state.newNote);
 
     // animation variants

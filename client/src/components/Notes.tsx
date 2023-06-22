@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
 import React, { ChangeEvent, MouseEvent, useEffect } from "react";
 import { useUserState, useNoteState, useCommonState } from "../data/state";
-import { AiFillCaretDown } from "react-icons/ai";
 import Note from "./Note";
 
 const Notes = () => {
@@ -12,8 +10,6 @@ const Notes = () => {
     const searchBy = useNoteState((state) => state.searchBy);
     const newNote = useCommonState((state) => state.newNote);
     const searchInput = useNoteState((state) => state.searchInput);
-    const tagsDropdown = useNoteState((state) => state.tagsDropdown);
-    const logged = useUserState((state) => state.logged);
 
     useEffect(() => {
         refreshTags();
@@ -53,9 +49,9 @@ const Notes = () => {
         }
     };
 
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        useNoteState.setState({ tagsDropdown: !tagsDropdown });
-    };
+    // const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    //     useNoteState.setState({ tagsDropdown: !tagsDropdown });
+    // };
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
         useNoteState.setState({ searchBy: event.target.value });

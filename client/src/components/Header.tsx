@@ -9,8 +9,8 @@ import { CgProfile } from "react-icons/cg";
 
 const Header = () => {
     // state variables
-    const { user: user, logged: logged } = useUserState((state) => state);
-    const { profileDropdown: profileDropdown, newNote: newNote } =
+    const { user, logged } = useUserState((state) => state);
+    const { profileDropdown, newNote } =
         useCommonState((state) => state);
 
     // animation variables

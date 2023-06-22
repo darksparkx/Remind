@@ -1,7 +1,7 @@
-import React, { ChangeEvent, MouseEvent, useEffect } from "react";
+import React, { MouseEvent } from "react";
 import { NoteInterface } from "../data/interfaces";
 import { BsFillTrashFill } from "react-icons/bs";
-import { useUserState, useNoteState } from "../data/state";
+import { useUserState } from "../data/state";
 import { UpdateNote } from "../modules/update";
 type Props = {
     index: string;

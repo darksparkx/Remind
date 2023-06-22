@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NoteInterface, UsersInterface } from "../data/interfaces";
+import { NoteInterface } from "../data/interfaces";
 
 export const UpdateNote = async (_email: string, _notes: NoteInterface[]) => {
     const url: string = process.env.REACT_APP_SERVER_URL as string;
