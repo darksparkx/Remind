@@ -47,9 +47,11 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/users", router);
+
 app.get("/", (req, res) => {
     res.send("here");
 });
+
 // Error Handling
 app.use((req, res, next) => {
     const error = new Error("not found");
